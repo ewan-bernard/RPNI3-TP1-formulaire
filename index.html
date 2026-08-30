@@ -1,13 +1,61 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>bernardewan-tp1-formulaire</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulaire de don</title>
+</head>
+
+<body>
+
+  <form id="formDon">
+
+    <!-- ÉTAPE 1 -->
+    <fieldset class="etape">
+      <legend>1. Montant</legend>
+      <label for="montant">Montant ($) :</label>
+      <input type="number" id="montant" name="montant" min="1" required />
+    </fieldset>
+
+    <!-- ÉTAPE 2 -->
+    <fieldset class="etape">
+      <legend>2. Coordonnées</legend>
+      <label for="prenom">Prénom :</label>
+      <input type="text" id="prenom" name="prenom" required pattern="^[a-zA-ZÀ-ÿ\- ]+$" />
+
+      <label for="courriel">Courriel :</label>
+      <input type="email" id="courriel" name="courriel" required pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" />
+    </fieldset>
+
+    <!-- ÉTAPE 3 -->
+    <fieldset class="etape">
+      <legend>3. Adresse</legend>
+      <label for="ville">Ville :</label>
+      <input type="text" id="ville" name="ville" required pattern="^[a-zA-ZÀ-ÿ0-9 '\-]+$" />
+
+      <label for="codePostal">Code postal :</label>
+      <input type="text" id="codePostal" name="codePostal" required pattern="^[a-zA-Z][0-9][a-zA-Z] [0-9][a-zA-Z][0-9]$"
+        placeholder="G1V 4H2" />
+    </fieldset>
+
+    <!-- ÉTAPE 4 -->
+    <fieldset class="etape">
+      <legend>4. Paiement</legend>
+      <label for="carte">Numéro de carte :</label>
+      <input type="text" id="carte" name="carte" required pattern="^[0-9]{4}[ ]?[0-9]{4}[ ]?[0-9]{4}[ ]?[0-9]{4}$" />
+    </fieldset>
+
+    <!-- NAVIGATION -->
+    <nav>
+      <button type="button" id="btnPrecedent">Précédent</button>
+      <button type="button" id="btnSuivant">Suivant</button>
+      <button type="submit" id="btnSoumettre" style="display: none;">Faire le don</button>
+    </nav>
+
+  </form>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
