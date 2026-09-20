@@ -3,57 +3,284 @@
 
 <head>
   <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Formulaire de don</title>
+  <title>Fondation KARMA</title>
 </head>
 
-<body>
+<body class="bg-neutral-100 min-h-screen py-8 px-6 font-sans text-neutral-900">
+  <div class="max-w-4xl mx-auto">
 
-  <form id="formDon">
+    <header class="relative flex items-center justify-between mb-8">
+      <button type="button" id="btnPrecedent"
+        class="py-2 px-6 bg-white hover:bg-neutral-50 text-neutral-900 border border-neutral-800 rounded-xl font-medium text-xs transition cursor-pointer">
+        Prev
+      </button>
 
-    <!-- ÉTAPE 1 -->
-    <fieldset class="etape">
-      <legend>1. Montant</legend>
-      <label for="montant">Montant ($) :</label>
-      <input type="number" id="montant" name="montant" min="1" required />
-    </fieldset>
+      <div class="absolute left-1/2 -translate-x-1/2 flex items-center gap-1.5">
+        <img src="/KarmaLogo.svg" alt="" class="w-4 h-4" aria-hidden="true" />
+        <h1 class="text-base font-bold tracking-widest text-black">KARMA</h1>
+      </div>
 
-    <!-- ÉTAPE 2 -->
-    <fieldset class="etape">
-      <legend>2. Coordonnées</legend>
-      <label for="prenom">Prénom :</label>
-      <input type="text" id="prenom" name="prenom" required pattern="^[a-zA-ZÀ-ÿ\- ]+$" />
+      <div class="w-16"></div> 
+    </header>
 
-      <label for="courriel">Courriel :</label>
-      <input type="email" id="courriel" name="courriel" required pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" />
-    </fieldset>
-
-    <!-- ÉTAPE 3 -->
-    <fieldset class="etape">
-      <legend>3. Adresse</legend>
-      <label for="ville">Ville :</label>
-      <input type="text" id="ville" name="ville" required pattern="^[a-zA-ZÀ-ÿ0-9 '\-]+$" />
-
-      <label for="codePostal">Code postal :</label>
-      <input type="text" id="codePostal" name="codePostal" required pattern="^[a-zA-Z][0-9][a-zA-Z] [0-9][a-zA-Z][0-9]$"
-        placeholder="G1V 4H2" />
-    </fieldset>
-
-    <!-- ÉTAPE 4 -->
-    <fieldset class="etape">
-      <legend>4. Paiement</legend>
-      <label for="carte">Numéro de carte :</label>
-      <input type="text" id="carte" name="carte" required pattern="^[0-9]{4}[ ]?[0-9]{4}[ ]?[0-9]{4}[ ]?[0-9]{4}$" />
-    </fieldset>
-
-    <!-- NAVIGATION -->
-    <nav>
-      <button type="button" id="btnPrecedent">Précédent</button>
-      <button type="button" id="btnSuivant">Suivant</button>
-      <button type="submit" id="btnSoumettre" style="display: none;">Faire le don</button>
+    <nav aria-label="Progression du don" class="mb-8">
+      <div class="flex justify-between items-center text-xs mb-2">
+        <span id="labelEtape" class="font-bold text-neutral-900">Choix du don</span>
+        <span id="etapesRestantes" class="text-neutral-400">3 étapes restantes</span>
+      </div>
+      <ol id="barreProgression" class="grid grid-cols-4 gap-3 list-none p-0 m-0">
+        <li class="h-1 rounded-full bg-black" aria-current="step"><span class="sr-only">Étape 1 active</span></li>
+        <li class="h-1 rounded-full bg-neutral-200"><span class="sr-only">Étape 2</span></li>
+        <li class="h-1 rounded-full bg-neutral-200"><span class="sr-only">Étape 3</span></li>
+        <li class="h-1 rounded-full bg-neutral-200"><span class="sr-only">Étape 4</span></li>
+      </ol>
     </nav>
 
-  </form>
+    <form id="formDon" action="merci.html" method="get">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+
+        <div class="lg:col-span-7">
+
+          <!-- ETAPE 1-->
+          <fieldset class="etape">
+            <legend class="sr-only">1. Choix du don et montant</legend>
+
+            <h2 class="text-3xl font-black text-neutral-900 mb-2">Mon Don &amp; Impact</h2>
+            <p class="text-sm text-neutral-500 mb-6 leading-relaxed">
+              Chaque dollar compte. Choisissez comment votre générosité transforme des vies.
+            </p>
+
+            <p class="text-xs font-extrabold uppercase tracking-wider text-neutral-700 mb-2.5">
+              Fréquence du don
+            </p>
+            <ul class="grid grid-cols-2 gap-3 mb-6 list-none p-0">
+              <li
+                class="carte-option flex items-center justify-between p-4 bg-white border border-neutral-900 rounded-xl cursor-pointer">
+                <label for="typeUnique" class="text-sm font-bold text-neutral-900 cursor-pointer flex-1">Don
+                  unique</label>
+                <input type="radio" id="typeUnique" name="typeDon" value="unique" checked
+                  class="w-4 h-4 accent-black cursor-pointer" />
+              </li>
+              <li
+                class="carte-option flex items-center justify-between p-4 bg-white border border-neutral-200 rounded-xl cursor-pointer">
+                <label for="typePeriodique" class="text-sm font-medium text-neutral-600 cursor-pointer flex-1">Don
+                  mensuel</label>
+                <input type="radio" id="typePeriodique" name="typeDon" value="mensuel"
+                  class="w-4 h-4 accent-black cursor-pointer" />
+              </li>
+            </ul>
+
+            <p class="text-xs font-extrabold uppercase tracking-wider text-neutral-700 mb-2.5">
+              Sélectionnez un montant
+            </p>
+            <ul class="grid grid-cols-2 gap-3 mb-5 list-none p-0">
+              <li
+                class="carte-option flex items-center justify-between p-4 bg-white border border-neutral-200 rounded-xl cursor-pointer">
+                <label for="montant25" class="text-sm font-bold text-neutral-900 cursor-pointer flex-1">25 $</label>
+                <input type="radio" id="montant25" name="montantFixe" value="25"
+                  class="w-4 h-4 accent-black cursor-pointer" />
+              </li>
+              <li
+                class="carte-option flex items-center justify-between p-4 bg-white border border-neutral-900 rounded-xl cursor-pointer">
+                <label for="montant50" class="text-sm font-bold text-neutral-900 cursor-pointer flex-1">50 $</label>
+                <input type="radio" id="montant50" name="montantFixe" value="50" checked
+                  class="w-4 h-4 accent-black cursor-pointer" />
+              </li>
+              <li
+                class="carte-option flex items-center justify-between p-4 bg-white border border-neutral-200 rounded-xl cursor-pointer">
+                <label for="montant100" class="text-sm font-bold text-neutral-900 cursor-pointer flex-1">100 $</label>
+                <input type="radio" id="montant100" name="montantFixe" value="100"
+                  class="w-4 h-4 accent-black cursor-pointer" />
+              </li>
+              <li
+                class="carte-option flex items-center justify-between p-4 bg-white border border-neutral-200 rounded-xl cursor-pointer">
+                <label for="montantAutre"
+                  class="text-sm font-semibold text-neutral-700 cursor-pointer flex-1">Autre</label>
+                <input type="radio" id="montantAutre" name="montantFixe" value="autre"
+                  class="w-4 h-4 accent-black cursor-pointer" />
+              </li>
+            </ul>
+
+            <div class="mb-4">
+              <div id="conteneurMontant"
+                class="relative flex items-center bg-white border border-neutral-300 rounded-xl px-4 py-3 focus-within:border-black">
+                <span class="text-sm font-bold text-neutral-900 mr-1.5">$</span>
+                <label for="montant" class="sr-only">Montant du don</label>
+                <input type="number" id="montant" name="montant" value="50" min="5" required
+                  class="w-full text-sm font-bold text-neutral-900 outline-none bg-transparent" />
+                <svg id="iconeErreurMontant" class="w-4 h-4 text-red-500 hidden shrink-0" viewBox="0 0 24 24"
+                  fill="currentColor" aria-hidden="true">
+                  <path d="M12 2L1 21h22L12 2zm1 14h-2v-2h2v2zm0-4h-2V8h2v4z" />
+                </svg>
+              </div>
+              <span id="erreurMontant" class="text-xs text-red-600 font-medium mt-1.5 block hidden">
+                Veuillez indiquer un montant supérieur ou égal à 5,00$.
+              </span>
+            </div>
+          </fieldset>
+
+          <!-- ÉTAPE 2-->
+          <fieldset class="etape">
+            <legend class="sr-only">2. Coordonnées du donateur</legend>
+
+            <h2 class="text-3xl font-black text-neutral-900 mb-2">Vos coordonnées</h2>
+            <p class="text-sm text-neutral-500 mb-6">
+              Veuillez renseigner vos informations pour votre reçu fiscal.
+            </p>
+
+            <div class="space-y-4">
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label for="prenom" class="block text-xs font-bold text-neutral-700 mb-1">Prénom :</label>
+                  <input type="text" id="prenom" name="prenom" required pattern="^[a-zA-ZÀ-ÿ \- ']+$"
+                    class="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-sm outline-none focus:border-black" />
+                </div>
+                <div>
+                  <label for="nom" class="block text-xs font-bold text-neutral-700 mb-1">Nom :</label>
+                  <input type="text" id="nom" name="nom" required pattern="^[a-zA-ZÀ-ÿ \- ']+$"
+                    class="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-sm outline-none focus:border-black" />
+                </div>
+              </div>
+
+              <div>
+                <label for="entreprise" class="block text-xs font-bold text-neutral-700 mb-1">Entreprise (optionnel)
+                  :</label>
+                <input type="text" id="entreprise" name="entreprise"
+                  class="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-sm outline-none focus:border-black" />
+              </div>
+
+              <div>
+                <label for="courriel" class="block text-xs font-bold text-neutral-700 mb-1">Courriel :</label>
+                <input type="email" id="courriel" name="courriel" required
+                  pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"
+                  class="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-sm outline-none focus:border-black" />
+              </div>
+
+              <div>
+                <label for="adresse" class="block text-xs font-bold text-neutral-700 mb-1">Adresse :</label>
+                <input type="text" id="adresse" name="adresse" required
+                  class="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-sm outline-none focus:border-black" />
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label for="ville" class="block text-xs font-bold text-neutral-700 mb-1">Ville :</label>
+                  <input type="text" id="ville" name="ville" required pattern="^[a-zA-ZÀ-ÿ 0-9 '\-]+$"
+                    class="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-sm outline-none focus:border-black" />
+                </div>
+                <div>
+                  <label for="codePostal" class="block text-xs font-bold text-neutral-700 mb-1">Code postal :</label>
+                  <input type="text" id="codePostal" name="codePostal" required
+                    pattern="^[a-zA-Z][0-9][a-zA-Z] [0-9][a-zA-Z][0-9]$" placeholder="G1V 4H2"
+                    class="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-sm outline-none focus:border-black" />
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- ÉTAPE 3-->
+          <fieldset class="etape">
+            <legend class="sr-only">3. Paiement</legend>
+
+            <h2 class="text-3xl font-black text-neutral-900 mb-2">Mode de paiement</h2>
+            <p class="text-sm text-neutral-500 mb-6">
+              Chiffrement sécurisé des données bancaires.
+            </p>
+
+            <p class="text-xs font-extrabold uppercase tracking-wider text-neutral-700 mb-2.5">Type de carte</p>
+            <ul class="grid grid-cols-3 gap-3 mb-5 list-none p-0">
+              <li
+                class="carte-option flex items-center justify-between p-3.5 bg-white border border-neutral-900 rounded-xl cursor-pointer">
+                <label for="carteVisa" class="text-sm font-bold text-neutral-900 cursor-pointer flex-1">Visa</label>
+                <input type="radio" id="carteVisa" name="typeCarte" value="Visa" checked
+                  class="w-4 h-4 accent-black cursor-pointer" />
+              </li>
+              <li
+                class="carte-option flex items-center justify-between p-3.5 bg-white border border-neutral-200 rounded-xl cursor-pointer">
+                <label for="carteMastercard"
+                  class="text-sm font-medium text-neutral-600 cursor-pointer flex-1">Mastercard</label>
+                <input type="radio" id="carteMastercard" name="typeCarte" value="Mastercard"
+                  class="w-4 h-4 accent-black cursor-pointer" />
+              </li>
+              <li
+                class="carte-option flex items-center justify-between p-3.5 bg-white border border-neutral-200 rounded-xl cursor-pointer">
+                <label for="carteAmex" class="text-sm font-medium text-neutral-600 cursor-pointer flex-1">Amex</label>
+                <input type="radio" id="carteAmex" name="typeCarte" value="Amex"
+                  class="w-4 h-4 accent-black cursor-pointer" />
+              </li>
+            </ul>
+
+            <div class="space-y-4">
+              <div>
+                <label for="carte" class="block text-xs font-bold text-neutral-700 mb-1">Numéro de carte :</label>
+                <input type="text" id="carte" name="carte" required
+                  pattern="^[0-9]{4}[ ]?[0-9]{4}[ ]?[0-9]{4}[ ]?[0-9]{4}$" placeholder="1234 5678 9012 3456"
+                  class="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-sm outline-none focus:border-black" />
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label for="expiration" class="block text-xs font-bold text-neutral-700 mb-1">Expiration :</label>
+                  <input type="text" id="expiration" name="expiration" required pattern="^(0[1-9]|1[0-2])\/[0-9]{2}$"
+                    placeholder="MM/AA"
+                    class="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-sm outline-none focus:border-black" />
+                </div>
+                <div>
+                  <label for="cvv" class="block text-xs font-bold text-neutral-700 mb-1">CVC / CVV :</label>
+                  <input type="text" id="cvv" name="cvv" required pattern="^[0-9]{3,4}$" placeholder="123"
+                    class="w-full px-4 py-3 bg-white border border-neutral-300 rounded-xl text-sm outline-none focus:border-black" />
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- ÉTAPE 4-->
+          <fieldset class="etape">
+            <legend class="sr-only">4. Confirmation</legend>
+
+            <h2 class="text-3xl font-black text-neutral-900 mb-2">Confirmation</h2>
+            <p class="text-sm text-neutral-500 mb-6">
+              Veuillez valider les informations de votre don.
+            </p>
+
+            <div class="bg-white border border-neutral-200 rounded-2xl p-5 text-sm space-y-3 mb-5">
+              <p><strong>Don :</strong> <span id="recapDonFinal">50 $ / mois</span></p>
+              <p><strong>Donateur :</strong> <span id="recapNomFinal">—</span></p>
+              <p><strong>Courriel :</strong> <span id="recapCourrielFinal">—</span></p>
+              <p><strong>Paiement :</strong> <span id="recapCarteFinal">—</span></p>
+            </div>
+
+            <div class="flex items-start gap-2.5">
+              <input type="checkbox" id="confirmation" name="confirmation" required
+                class="mt-1 accent-black cursor-pointer" />
+              <label for="confirmation" class="text-xs text-neutral-700 cursor-pointer">
+                J'atteste de l'exactitude des renseignements et confirme mon don à KARMA.
+              </label>
+            </div>
+          </fieldset>
+
+        </div>
+
+        <aside class="lg:col-span-5 space-y-4">
+          <div class="bg-white border border-neutral-200 rounded-2xl p-6">
+            <p class="text-xs text-neutral-400 font-semibold mb-1">Votre don</p>
+            <p id="recapDonLive" class="text-2xl font-black text-neutral-900">50 $ / mois</p>
+          </div>
+
+          <button type="button" id="btnSuivant"
+            class="w-full py-3.5 px-6 bg-black hover:bg-neutral-800 text-white rounded-xl font-semibold text-sm transition cursor-pointer text-center">
+            Suivant
+          </button>
+
+          <button type="submit" id="btnSoumettre" style="display: none;"
+            class="w-full py-3.5 px-6 bg-black hover:bg-neutral-800 text-white rounded-xl font-semibold text-sm transition cursor-pointer text-center">
+            Faire le don
+          </button>
+        </aside>
+      </div>
+    </form>
+  </div>
 
   <script type="module" src="/src/main.ts"></script>
 </body>

@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 .js .etape {
   display: none;
 }
@@ -7,3 +8,16 @@
 .js .etape.active {
   display: block;
 }
+
+.champ-erreur {
+  border-color: #ef4444 !important;
+  outline: 2px solid #ef4444 !important;
+}
+
+.erreur {
+  display: block;
+  color: #dc2626;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+} 
+
