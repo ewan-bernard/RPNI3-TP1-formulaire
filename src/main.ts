@@ -161,6 +161,11 @@ function afficherEtape(): void {
   if (btnPrecedent) {
     btnPrecedent.classList.toggle("opacity-30", intIndexEtape === 0);
     btnPrecedent.classList.toggle("cursor-not-allowed", intIndexEtape === 0);
+    if (intIndexEtape === 0) {
+      btnPrecedent.setAttribute("aria-disabled", "true");
+    } else {
+      btnPrecedent.removeAttribute("aria-disabled");
+    }
   }
 
   const blnEstDerniere = intIndexEtape === tabEtapes.length - 1;
@@ -200,7 +205,7 @@ function initialiser(): void {
     });
   });
 
- 
+
   document.querySelectorAll<HTMLInputElement>("input[name='montantFixe']").forEach((radio) => {
     radio.addEventListener("change", () => {
       document.querySelectorAll("input[name='montantFixe']").forEach((r) => {
